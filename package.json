@@ -1,0 +1,23 @@
+{
+  "name": "wspbotdie",
+  "version": "1.0.0",
+  "description": "A WhatsApp Bot made for a survey.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CrisIsla/wspbotdie.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CrisIsla/wspbotdie/issues"
+  },
+  "homepage": "https://github.com/CrisIsla/wspbotdie#readme",
+  "dependencies": {
+    "whatsapp-web.js": "^1.23.0"
+  }
+}
