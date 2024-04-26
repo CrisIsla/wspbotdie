@@ -4,6 +4,7 @@
   "description": "A WhatsApp Bot made for a survey.",
   "main": "main.js",
   "scripts": {
+    "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
