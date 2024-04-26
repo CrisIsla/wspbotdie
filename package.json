@@ -2,7 +2,7 @@
   "name": "wspbotdie",
   "version": "1.0.0",
   "description": "A WhatsApp Bot made for a survey.",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
