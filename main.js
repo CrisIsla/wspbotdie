@@ -14,5 +14,15 @@ client.on('qr', (qr) => {
     qrcode.generate(qr, {'small': true});
 });
 
+// Listening to all incoming messages
+client.on('message_create', message => {
+    async function getChat() {
+        var chat = (await message.getChat()).fetchMessages();
+        var messages = (await chat).map((msg) => msg.body);
+        return messages;
+    }
+    messages = getChat()
+});
+
 // Start your client
 client.initialize();
