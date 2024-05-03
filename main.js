@@ -24,27 +24,26 @@ client.on("qr", (qr) => {
 // Listening to all incoming messages
 client.on("message_create", (message) => {
   async function getChat() {
-    try {
-      const chat = await message.getChat();
-      const messages = await chat.fetchMessages();
-      const messages_body = messages.map((msg) => msg.body);
-      return messages_body;
-    } catch (error) {
-      console.error(error);
-    }
+    const chat = await message.getChat();
+    const messages = await chat.fetchMessages();
+    const messages_body = messages.map((msg) => msg.body);
+    return messages_body;
   }
 
   async function surveyLogic() {
     if (!message.fromMe) {
-      const messages = await getChat();
-      // console.log(messages)
-
-      for (let i = 0; i < questions.length; i++) {
-        if (!messages.includes(questions[i])) {
-          console.log("Se envio el mensaje");
-          client.sendMessage(message.from, questions[i]);
-          break;
+      try {
+        const messages = await getChat();
+        for (let i = 0; i < questions.length; i++) {
+          if (!messages.includes(questions[i])) {
+            console.log("Se envio el mensaje", message.body);
+            client.sendMessage(message.from, questions[i]);
+            break;
+          }
         }
+      } catch (error) {
+        console.log(error);
+        surveyLogic();
       }
     }
   }
