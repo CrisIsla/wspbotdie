@@ -31,7 +31,7 @@ client.on("message_create", (message) => {
   }
 
   async function surveyLogic() {
-    if (!message.fromMe) {
+    if (!message.fromMe && message.body != "") {
       try {
         const messages = await getChat();
         for (let i = 0; i < questions.length; i++) {
