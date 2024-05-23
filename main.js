@@ -12,12 +12,22 @@ const questions = {
 
 const answers = ["a", "b", "c", "d", "e"];
 
+const test_numbers = ["56912345678@c.us"];
+
 // Create a new client instance
 const client = new Client();
 
 // When the client is ready, run this code (only once)
 client.once("ready", () => {
   console.log("Client is ready!");
+
+  async function sendInitialMessage() {
+    for (let i = 0; i < test_numbers.length; i++) {
+      client.sendMessage(test_numbers[i], questions.welcome);
+    }
+  }
+
+  sendInitialMessage();
 });
 
 // When the client received QR-Code
@@ -52,6 +62,7 @@ client.on("message_create", (message) => {
               response = "That's not a valid answer. Please, try again.";
             }
             client.sendMessage(message.from, response);
+            console.log(message.from);
             console.log("Message sent:", response);
             break;
           }
