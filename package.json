@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/CrisIsla/wspbotdie#readme",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "qrcode-terminal": "^0.12.0",
     "whatsapp-web.js": "github:pedroslopez/whatsapp-web.js#webpack-exodus"
   }

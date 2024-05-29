@@ -1,5 +1,6 @@
 const { Client } = require("whatsapp-web.js");
 const qrcode = require("qrcode-terminal");
+require("dotenv").config();
 
 const questions = {
   welcome:
@@ -14,7 +15,7 @@ const questions = {
 
 const answers = ["a", "b", "c", "d", "e"];
 
-const test_numbers = ["56912345678@c.us"];
+const numbers = process.env.TEST_NUMBERS.split(",");
 
 // Create a new client instance
 const client = new Client();
