@@ -53,23 +53,25 @@ client.on("message", (message) => {
     console.log("Message received:", message.body);
     try {
       const messages = await getChat(true);
+      let last_question_key;
       for (const [key, value] of Object.entries(questions)) {
-        if (!messages.includes(value)) {
-          let response;
-          if (
-            answers.includes(message.body.toLowerCase()) ||
-            key == "q1" ||
-            key == "end"
-          ) {
-            response = value;
-          } else {
-            response = "That's not a valid answer. Please, try again.";
-          }
-          client.sendMessage(message.from, response);
-          console.log(message.from);
-          console.log("Message sent:", response);
-          break;
+        if (messages.includes(value)) {
+          last_question_key = key;
         }
+        let response;
+        if (
+          answers.includes(message.body.toLowerCase()) ||
+          last_question_key == "welcome" ||
+          last_question_key == "q3"
+        ) {
+          response = value;
+        } else {
+          response = "That's not a valid answer. Please, try again.";
+        }
+        client.sendMessage(message.from, response);
+        console.log(message.from);
+        console.log("Message sent:", response);
+        break;
       }
     } catch (error) {
       console.log(error);
