@@ -3,11 +3,13 @@ const qrcode = require("qrcode-terminal");
 
 const questions = {
   welcome:
-    "Welcome to the survey.\nPlease answer questions 1 and 2 with (a, b, c, d, e).\nQuestion 3 is free to answer with anything.\nAnswer to this message to start :)",
-  q1: "Question1",
-  q2: "Question2",
-  q3: "Question3",
-  end: "We are done :). Thanks for your time",
+    "Hola, soy Cristobal. Bienvenido/a a mi encuesta sobre comida.\nPor favor contesta las preguntas de alternativas enviando una de las siguientes opciones (a, b, c, d, e).\nEl resto de preguntas se puede responder libremente.\nResponde a este mensaje para comenzar :).",
+  q1: "Cual es tu comida favorita? \na) Papas Frita\nb) Pizza\nc) Hamburguesa\nd) Completos\ne) Ninguna de las anteriores",
+  q2: "Cual es tu bebida favorita? \na) Agua\nb) Jugo de naranja\nc) Coca-Cola\nd) Cerveza\ne) Ninguna de las anteriores",
+  q3: "Que es lo que mas te gusta de tu comida favorita?",
+  end: "Se han guardado tus respuestas. Muchas gracias por participar :).",
+  invalid:
+    "Esa no es una respuesta valida. Recuerda responder con alguna de las alternativas (a, b, c, d, e)",
 };
 
 const answers = ["a", "b", "c", "d", "e"];
