@@ -1,5 +1,6 @@
 const { Client } = require("whatsapp-web.js");
 const qrcode = require("qrcode-terminal");
+
 require("dotenv").config();
 
 const questions = {
