@@ -41,9 +41,9 @@ client.on("qr", (qr) => {
 
 // Listening to all incoming messages
 client.on("message", (message) => {
-  async function getChat() {
+  async function getChat(own_messages = false) {
     const chat = await message.getChat();
-    const messages = await chat.fetchMessages();
+    const messages = await chat.fetchMessages(own_messages);
     const messages_body = messages.map((msg) => msg.body);
     return messages_body;
   }
@@ -52,7 +52,7 @@ client.on("message", (message) => {
     if (message.body == "") return;
     console.log("Message received:", message.body);
     try {
-      const messages = await getChat();
+      const messages = await getChat(true);
       for (const [key, value] of Object.entries(questions)) {
         if (!messages.includes(value)) {
           let response;
