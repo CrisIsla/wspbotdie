@@ -26,8 +26,8 @@ client.once("ready", () => {
   console.log("Client is ready!");
 
   async function sendInitialMessage() {
-    for (let i = 0; i < test_numbers.length; i++) {
-      client.sendMessage(test_numbers[i], questions.welcome);
+    for (let i = 0; i < numbers.length; i++) {
+      client.sendMessage(numbers[i], questions.welcome);
     }
   }
 
@@ -40,7 +40,7 @@ client.on("qr", (qr) => {
 });
 
 // Listening to all incoming messages
-client.on("message_create", (message) => {
+client.on("message", (message) => {
   async function getChat() {
     const chat = await message.getChat();
     const messages = await chat.fetchMessages();
@@ -49,7 +49,7 @@ client.on("message_create", (message) => {
   }
 
   async function surveyLogic() {
-    if (!message.fromMe && message.body != "") {
+    if (message.body != "") {
       console.log("Message received:", message.body);
       try {
         const messages = await getChat();
