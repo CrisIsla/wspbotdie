@@ -49,32 +49,31 @@ client.on("message", (message) => {
   }
 
   async function surveyLogic() {
-    if (message.body != "") {
-      console.log("Message received:", message.body);
-      try {
-        const messages = await getChat();
-        for (const [key, value] of Object.entries(questions)) {
-          if (!messages.includes(value)) {
-            let response;
-            if (
-              answers.includes(message.body.toLowerCase()) ||
-              key == "q1" ||
-              key == "end"
-            ) {
-              response = value;
-            } else {
-              response = "That's not a valid answer. Please, try again.";
-            }
-            client.sendMessage(message.from, response);
-            console.log(message.from);
-            console.log("Message sent:", response);
-            break;
+    if (message.body == "") return;
+    console.log("Message received:", message.body);
+    try {
+      const messages = await getChat();
+      for (const [key, value] of Object.entries(questions)) {
+        if (!messages.includes(value)) {
+          let response;
+          if (
+            answers.includes(message.body.toLowerCase()) ||
+            key == "q1" ||
+            key == "end"
+          ) {
+            response = value;
+          } else {
+            response = "That's not a valid answer. Please, try again.";
           }
+          client.sendMessage(message.from, response);
+          console.log(message.from);
+          console.log("Message sent:", response);
+          break;
         }
-      } catch (error) {
-        console.log(error);
-        surveyLogic();
       }
+    } catch (error) {
+      console.log(error);
+      surveyLogic();
     }
   }
 
