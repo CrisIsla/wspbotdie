@@ -1,0 +1,21 @@
+{
+    "welcome-message": "Hola, soy Cristobal. Bienvenido/a a mi encuesta sobre comida.\nPor favor contesta las preguntas de alternativas enviando una de las siguientes opciones (a, b, c, d, e).\nEl resto de preguntas se puede responder libremente.\nResponde a este mensaje para comenzar :).",
+    "questions": [
+        {
+            "question": "Cual es tu comida favorita?",
+            "type": "multiple-choice",
+            "options": ["Papas Frita", "Pizza", "Hambuerguesa", "Completos", "Ninguna de las anteriores"]
+        },
+        {
+            "question": "Cual es tu bebida favorita?",
+            "type": "multiple-choice",
+            "options": ["Agua", "Jugo de naranja", "Coca-Cola", "Cerveza", "Ninguna de las anteriores"]
+        },
+        {
+            "question": "Que es lo que mas te gusta de tu comida favorita?",
+            "type": "text"
+        }
+    ],
+    "end-message": "Se han guardado tus respuestas. Muchas gracias por participar :).",
+    "invalid": "Esa no es una respuesta valida. Recuerda responder con alguna de las alternativas (a, b, c, d, e)"
+}
