@@ -28,32 +28,52 @@ client.on("qr", (qr) => {
 
 // Listening to all incoming messages
 client.on("message", (message) => {
-  async function getChat(own_messages = false) {
+  async function getChat(own_messages) {
     const chat = await message.getChat();
-    const messages = await chat.fetchMessages(own_messages);
+    const messages = await chat.fetchMessages({ fromMe: own_messages });
     const messages_body = messages.map((msg) => msg.body);
     return messages_body;
+  }
+
+  function formulateQuestion(question_json) {
+    let question = question_json.question;
+    if (question_json.type == "multiple-choice") {
+      for (let i = 0; i < question_json.options.length; i++) {
+        question +=
+          "\n- " +
+          String.fromCharCode(97 + i) +
+          ") " +
+          question_json.options[i];
+      }
+    }
+    return question;
+  }
+
+  function getFirstLine(question) {
+    return question.split("\n")[0];
   }
 
   async function surveyLogic() {
     if (message.body == "") return;
     console.log("Message received:", message.body);
     try {
-      const messages = await getChat(true);
-      let last_question;
+      const messages = (await getChat(true)).map(getFirstLine);
+      console.log(messages);
+      let last_question = bot_messages["welcome-message"];
       for (let i = 0; i < bot_messages.questions.length; i++) {
-        if (messages.includes(bot_messages.questions[i])) {
-          last_question = questions[i];
+        if (messages.includes(bot_messages.questions[i].question)) {
+          last_question = bot_messages.questions[i];
           continue;
         }
         let response;
         if (
+          last_question == bot_messages["welcome-message"] ||
           answers.includes(message.body.toLowerCase()) ||
           last_question.type == "text"
         ) {
-          response = value;
+          response = formulateQuestion(bot_messages.questions[i]);
         } else {
-          response = "That's not a valid answer. Please, try again.";
+          response = bot_messages.invalid;
         }
         client.sendMessage(message.from, response);
         console.log(message.from);

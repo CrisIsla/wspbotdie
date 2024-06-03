@@ -3,7 +3,7 @@
     "questions": [
         {
             "question": "Cual es tu comida favorita?",
-            "type": "multiple-choise",
+            "type": "multiple-choice",
             "options": ["Papas Frita", "Pizza", "Hambuerguesa", "Completos", "Ninguna de las anteriores"]
         },
         {
