@@ -1,17 +1,7 @@
 const { Client } = require("whatsapp-web.js");
 const qrcode = require("qrcode-terminal");
 const numbers = require("./numbers.json");
-
-const questions = {
-  welcome:
-    "Hola, soy Cristobal. Bienvenido/a a mi encuesta sobre comida.\nPor favor contesta las preguntas de alternativas enviando una de las siguientes opciones (a, b, c, d, e).\nEl resto de preguntas se puede responder libremente.\nResponde a este mensaje para comenzar :).",
-  q1: "Cual es tu comida favorita? \na) Papas Frita\nb) Pizza\nc) Hamburguesa\nd) Completos\ne) Ninguna de las anteriores",
-  q2: "Cual es tu bebida favorita? \na) Agua\nb) Jugo de naranja\nc) Coca-Cola\nd) Cerveza\ne) Ninguna de las anteriores",
-  q3: "Que es lo que mas te gusta de tu comida favorita?",
-  end: "Se han guardado tus respuestas. Muchas gracias por participar :).",
-  invalid:
-    "Esa no es una respuesta valida. Recuerda responder con alguna de las alternativas (a, b, c, d, e)",
-};
+const bot_messages = require("./questions.json");
 
 const answers = ["a", "b", "c", "d", "e"];
 
@@ -24,7 +14,7 @@ client.once("ready", () => {
 
   async function sendInitialMessage() {
     for (let i = 0; i < numbers.length; i++) {
-      client.sendMessage(numbers[i], questions.welcome);
+      client.sendMessage(numbers[i], bot_messages["welcome-message"]);
     }
   }
 
@@ -50,16 +40,16 @@ client.on("message", (message) => {
     console.log("Message received:", message.body);
     try {
       const messages = await getChat(true);
-      let last_question_key;
-      for (const [key, value] of Object.entries(questions)) {
-        if (messages.includes(value)) {
-          last_question_key = key;
+      let last_question;
+      for (let i = 0; i < bot_messages.questions.length; i++) {
+        if (messages.includes(bot_messages.questions[i])) {
+          last_question = questions[i];
+          continue;
         }
         let response;
         if (
           answers.includes(message.body.toLowerCase()) ||
-          last_question_key == "welcome" ||
-          last_question_key == "q3"
+          last_question.type == "text"
         ) {
           response = value;
         } else {
