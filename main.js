@@ -3,7 +3,7 @@ const qrcode = require("qrcode-terminal");
 const numbers = require("./numbers.json");
 const bot_messages = require("./questions.json");
 
-const answers = ["a", "b", "c", "d", "e"];
+let answers = {};
 
 // Create a new client instance
 const client = new Client();
@@ -15,10 +15,11 @@ client.once("ready", () => {
   async function sendInitialMessage() {
     for (let i = 0; i < numbers.length; i++) {
       client.sendMessage(numbers[i], bot_messages["welcome-message"]);
+      answers[numbers[i]] = [];
     }
   }
-
   sendInitialMessage();
+  console.log(answers);
 });
 
 // When the client received QR-Code
@@ -68,7 +69,7 @@ client.on("message", (message) => {
         let response;
         if (
           last_question == bot_messages["welcome-message"] ||
-          answers.includes(message.body.toLowerCase()) ||
+          ["a", "b", "c", "d", "e"].includes(message.body.toLowerCase()) ||
           last_question.type == "text"
         ) {
           response = formulateQuestion(bot_messages.questions[i]);
