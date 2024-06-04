@@ -3,6 +3,8 @@ const qrcode = require("qrcode-terminal");
 const numbers = require("./numbers.json");
 const bot_messages = require("./questions.json");
 
+const QUESTIONS_LEN = bot_messages.questions.length;
+
 let answers = {};
 
 // Create a new client instance
@@ -15,11 +17,13 @@ client.once("ready", () => {
   async function sendInitialMessage() {
     for (let i = 0; i < numbers.length; i++) {
       client.sendMessage(numbers[i], bot_messages["welcome-message"]);
-      answers[numbers[i]] = [];
+      answers[numbers[i]] = {
+        answers: [],
+        is_done: false,
+      };
     }
   }
   sendInitialMessage();
-  console.log(answers);
 });
 
 // When the client received QR-Code
@@ -54,37 +58,32 @@ client.on("message", (message) => {
     return question.split("\n")[0];
   }
 
-  async function surveyLogic() {
-    if (message.body == "") return;
+  function surveyLogic() {
+    if (message.body == "" || answers[message.from].is_done) return;
     console.log("Message received:", message.body);
-    try {
-      const messages = (await getChat(true)).map(getFirstLine);
-      console.log(messages);
-      let last_question = bot_messages["welcome-message"];
-      for (let i = 0; i < bot_messages.questions.length; i++) {
-        if (messages.includes(bot_messages.questions[i].question)) {
-          last_question = bot_messages.questions[i];
-          continue;
-        }
-        let response;
-        if (
-          last_question == bot_messages["welcome-message"] ||
-          ["a", "b", "c", "d", "e"].includes(message.body.toLowerCase()) ||
-          last_question.type == "text"
-        ) {
-          response = formulateQuestion(bot_messages.questions[i]);
-        } else {
-          response = bot_messages.invalid;
-        }
-        client.sendMessage(message.from, response);
-        console.log(message.from);
-        console.log("Message sent:", response);
-        break;
-      }
-    } catch (error) {
-      console.log(error);
-      surveyLogic();
+    total_answers = answers[message.from].answers.length;
+    if (total_answers == 0) {
+      last_question = bot_messages["welcome-message"];
+    } else {
+      last_question = bot_messages.questions[total_answers - 1];
     }
+    let response;
+    if (total_answers == QUESTIONS_LEN) {
+      response = bot_messages["end-message"];
+      answers[message.from].is_done = true;
+    } else if (
+      last_question == bot_messages["welcome-message"] ||
+      ["a", "b", "c", "d", "e"].includes(message.body.toLowerCase()) ||
+      last_question.type == "text"
+    ) {
+      response = formulateQuestion(bot_messages.questions[total_answers]);
+      answers[message.from].answers.push(response);
+    } else {
+      response = bot_messages.invalid;
+    }
+    client.sendMessage(message.from, response);
+    console.log(message.from);
+    console.log("Message sent:", response);
   }
 
   async function clearChat() {
