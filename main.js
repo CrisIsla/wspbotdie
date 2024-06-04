@@ -33,13 +33,6 @@ client.on("qr", (qr) => {
 
 // Listening to all incoming messages
 client.on("message", (message) => {
-  async function getChat(own_messages) {
-    const chat = await message.getChat();
-    const messages = await chat.fetchMessages({ fromMe: own_messages });
-    const messages_body = messages.map((msg) => msg.body);
-    return messages_body;
-  }
-
   function formulateQuestion(question_json) {
     let question = question_json.question;
     if (question_json.type == "multiple-choice") {
@@ -52,10 +45,6 @@ client.on("message", (message) => {
       }
     }
     return question;
-  }
-
-  function getFirstLine(question) {
-    return question.split("\n")[0];
   }
 
   function surveyLogic() {
@@ -84,12 +73,6 @@ client.on("message", (message) => {
     client.sendMessage(message.from, response);
     console.log(message.from);
     console.log("Message sent:", response);
-  }
-
-  async function clearChat() {
-    const chat = await message.getChat();
-    await chat.clearMessages();
-    console.log(chat);
   }
   surveyLogic();
   // clearChat();
