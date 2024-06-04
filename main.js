@@ -47,6 +47,14 @@ client.on("message", (message) => {
     return question;
   }
 
+  function getQuestionChoices(question_options) {
+    question_choises = [];
+    for (let i = 0; i < question_options.length; i++) {
+      question_options.push(String.fromCharCode(97 + i));
+    }
+    return question_choises;
+  }
+
   function surveyLogic() {
     if (message.body == "" || answers[message.from].is_done) return;
     console.log("Message received:", message.body);
@@ -62,8 +70,10 @@ client.on("message", (message) => {
       answers[message.from].is_done = true;
     } else if (
       last_question == bot_messages["welcome-message"] ||
-      ["a", "b", "c", "d", "e"].includes(message.body.toLowerCase()) ||
-      last_question.type == "text"
+      last_question.type == "text" ||
+      getQuestionChoices(last_question.options).includes(
+        message.body.toLowerCase()
+      )
     ) {
       response = formulateQuestion(bot_messages.questions[total_answers]);
       answers[message.from].answers.push(response);
@@ -75,7 +85,6 @@ client.on("message", (message) => {
     console.log("Message sent:", response);
   }
   surveyLogic();
-  // clearChat();
 });
 
 // Start your client
