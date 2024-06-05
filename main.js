@@ -15,9 +15,32 @@ let db = new sqlite3.Database(
       return;
     } else {
       console.log("Connected to the SQLite database.");
+      createAnswersTable(TOTAL_QUESTIONS);
     }
   }
 );
+
+function createAnswersTable(total_questions) {
+  let questions_id = [];
+  for (let i = 0; i < total_questions; i++) {
+    questions_id.push(`Q${i + 1}`);
+  }
+
+  let columnsDefinition = questions_id.map((col) => `${col} TEXT`).join(", ");
+
+  query = `CREATE TABLE IF NOT EXISTS answers (
+    number TEXT PRIMARY KEY,
+    ${columnsDefinition}
+  )`;
+  console.log(query);
+  db.run(query, (err) => {
+    if (err) {
+      console.log("Error creating table: ", err.message);
+    } else {
+      console.log("Table answers created succesfully.");
+    }
+  });
+}
 
 let answers = {};
 
