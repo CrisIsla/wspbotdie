@@ -1,9 +1,23 @@
 const { Client } = require("whatsapp-web.js");
 const qrcode = require("qrcode-terminal");
+const sqlite3 = require("sqlite3").verbose();
 const numbers = require("./numbers.json");
 const bot_messages = require("./questions.json");
 
-const QUESTIONS_LEN = bot_messages.questions.length;
+const TOTAL_QUESTIONS = bot_messages.questions.length;
+
+let db = new sqlite3.Database(
+  "./answers.db",
+  sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
+  (err) => {
+    if (err) {
+      console.error("Error opening database:", err.message);
+      return;
+    } else {
+      console.log("Connected to the SQLite database.");
+    }
+  }
+);
 
 let answers = {};
 
@@ -65,7 +79,7 @@ client.on("message", (message) => {
       last_question = bot_messages.questions[total_answers - 1];
     }
     let response;
-    if (total_answers == QUESTIONS_LEN) {
+    if (total_answers == TOTAL_QUESTIONS) {
       response = bot_messages["end-message"];
       answers[message.from].is_done = true;
     } else if (
