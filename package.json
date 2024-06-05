@@ -20,6 +20,7 @@
   "homepage": "https://github.com/CrisIsla/wspbotdie#readme",
   "dependencies": {
     "qrcode-terminal": "^0.12.0",
+    "sqlite3": "^5.1.7",
     "whatsapp-web.js": "github:pedroslopez/whatsapp-web.js#webpack-exodus"
   }
 }
