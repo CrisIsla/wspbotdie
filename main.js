@@ -48,11 +48,11 @@ client.on("message", (message) => {
   }
 
   function getQuestionChoices(question_options) {
-    question_choises = [];
+    question_choices = [];
     for (let i = 0; i < question_options.length; i++) {
-      question_options.push(String.fromCharCode(97 + i));
+      question_choices.push(String.fromCharCode(97 + i));
     }
-    return question_choises;
+    return question_choices;
   }
 
   function surveyLogic() {
@@ -76,7 +76,7 @@ client.on("message", (message) => {
       )
     ) {
       response = formulateQuestion(bot_messages.questions[total_answers]);
-      answers[message.from].answers.push(response);
+      answers[message.from].answers.push(message.body);
     } else {
       response = bot_messages.invalid;
     }
