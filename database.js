@@ -19,7 +19,7 @@ function connectDB(dbFilePath) {
 function createAnswersTable(db, total_questions) {
   let questions_id = [];
   for (let i = 0; i < total_questions; i++) {
-    questions_id.push(`Q${i + 1}`);
+    questions_id.push(`Q${i}`);
   }
 
   let columnsDefinition = questions_id.map((col) => `${col} TEXT`).join(", ");
@@ -38,7 +38,34 @@ function createAnswersTable(db, total_questions) {
   });
 }
 
+function insertAnswer(db, number, answer, answer_number) {
+  query = `INSERT OR REPLACE INTO answers (number, Q${answer_number}) VALUES (?, ?)`;
+
+  db.run(query, [number, answer], function (err) {
+    if (err) {
+      console.error("Error inserting data:", err.message);
+    } else {
+      console.log(`Row inserted with number: ${number}`);
+    }
+  });
+}
+
+function printAnswersTable(db) {
+  query = `SELECT * FROM answers`;
+  db.all(query, [], (err, rows) => {
+    if (err) {
+      throw err;
+    }
+    // Print the retrieved rows
+    rows.forEach((row) => {
+      console.log(row);
+    });
+  });
+}
+
 module.exports = {
   connectDB,
   createAnswersTable,
+  insertAnswer,
+  printAnswersTable,
 };

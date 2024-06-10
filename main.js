@@ -2,7 +2,13 @@ const { Client } = require("whatsapp-web.js");
 const qrcode = require("qrcode-terminal");
 const numbers = require("./numbers.json");
 const bot_messages = require("./questions.json");
-import { connectDB, createAnswersTable } from "./database";
+const {
+  connectDB,
+  createAnswersTable,
+  insertAnswer,
+  printAnswersTable,
+} = require("./database");
+const { getQuestionChoices, formulateQuestion } = require("./utils");
 
 const TOTAL_QUESTIONS = bot_messages.questions.length;
 
@@ -60,20 +66,23 @@ client.on("message", (message) => {
       )
     )
       response = bot_messages.invalid;
-    else if (last_question === bot_messages.questions[TOTAL_QUESTIONS - 1]) {
-      response = bot_messages["end-message"];
+    else {
       answers[message.from].answers.push(message.body);
-      answers[message.from].is_done = true;
-    } else {
-      total_answers += 1;
-      response = formulateQuestion(bot_messages.questions[total_answers]);
-      answers[message.from].answers.push(message.body);
+      insertAnswer(db, message.from, message.body, total_answers);
+      if (last_question === bot_messages.questions[TOTAL_QUESTIONS - 1]) {
+        response = bot_messages["end-message"];
+        answers[message.from].is_done = true;
+      } else {
+        total_answers += 1;
+        response = formulateQuestion(bot_messages.questions[total_answers]);
+      }
     }
     client.sendMessage(message.from, response);
     console.log(message.from);
     console.log("Message sent:", response);
   }
   surveyLogic();
+  printAnswersTable(db);
 });
 
 // Start your client
