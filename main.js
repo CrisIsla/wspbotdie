@@ -9,6 +9,7 @@ const {
   printAnswersTable,
 } = require("./database");
 const { getQuestionChoices, formulateQuestion } = require("./utils");
+const { getSelectedChoice } = require("./ai");
 
 const TOTAL_QUESTIONS = bot_messages.questions.length;
 
@@ -45,7 +46,7 @@ client.on("qr", (qr) => {
 
 // Listening to all incoming messages
 client.on("message", (message) => {
-  function surveyLogic() {
+  async function surveyLogic() {
     if (message.body == "" || answers[message.from].is_done) return;
     console.log("Message received:", message.body);
     let response;
@@ -57,24 +58,44 @@ client.on("message", (message) => {
       answers[message.from].sent_first_question = true;
       return;
     }
-    total_answers = answers[message.from].answers.length;
-    last_question = bot_messages.questions[total_answers];
+    let total_answers = answers[message.from].answers.length;
+    let last_question = bot_messages.questions[total_answers];
+    let selected_choice = message.body;
+    let is_answer_valid = true;
     if (
       last_question.type != "text" &&
       !getQuestionChoices(last_question.options).includes(
-        message.body.toLowerCase()
+        selected_choice.toLowerCase()
       )
-    )
-      response = bot_messages.invalid;
-    else {
-      answers[message.from].answers.push(message.body);
-      insertAnswer(db, message.from, message.body, total_answers);
+    ) {
+      await client.sendMessage(message.from, "Interpretando respuesta...");
+      selected_choice = await getSelectedChoice(
+        last_question.question,
+        last_question.options,
+        selected_choice
+      );
+      if (
+        !getQuestionChoices(last_question.options).includes(
+          selected_choice.toLowerCase()
+        )
+      ) {
+        is_answer_valid = false;
+        response = bot_messages.invalid;
+      } else {
+        await client.sendMessage(
+          message.from,
+          `Su respuesta se interpreto como la alternativa: ${selected_choice.toUpperCase()}`
+        );
+      }
+    }
+    if (is_answer_valid) {
+      answers[message.from].answers.push(selected_choice);
+      insertAnswer(db, message.from, selected_choice, total_answers);
       if (last_question === bot_messages.questions[TOTAL_QUESTIONS - 1]) {
         response = bot_messages["end-message"];
         answers[message.from].is_done = true;
       } else {
-        total_answers += 1;
-        response = formulateQuestion(bot_messages.questions[total_answers]);
+        response = formulateQuestion(bot_messages.questions[total_answers + 1]);
       }
     }
     client.sendMessage(message.from, response);
