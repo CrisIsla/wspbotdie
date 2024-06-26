@@ -20,7 +20,12 @@ createAnswersTable(db, TOTAL_QUESTIONS);
 let answers = {};
 
 // Create a new client instance
-const client = new Client();
+const client = new Client({
+  puppeteer: {
+    headless: true,
+    args: ["--headless", "--no-sandbox", "--disable-setuid-sandbox"],
+  },
+});
 
 // When the client is ready, run this code (only once)
 client.once("ready", () => {
