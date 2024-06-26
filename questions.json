@@ -1,10 +1,10 @@
 {
-    "welcome-message": "Hola, soy Cristobal. Bienvenido/a a mi encuesta sobre comida.\nPor favor contesta las preguntas de alternativas enviando una de las siguientes opciones (a, b, c, d, e).\nEl resto de preguntas se puede responder libremente.\nResponde a este mensaje para comenzar :).",
+    "welcome-message": "Hola, soy Cristobal. Bienvenido/a a mi encuesta sobre comida.\nPor favor contesta las preguntas de alternativas enviando una de las siguientes opciones (a, b, c, d, e). En caso de que respondas de otra manera, se interpretará tu respuesta a la alternativa correspondiente.\nEl resto de preguntas se puede responder libremente.\nResponde a este mensaje para comenzar :).",
     "questions": [
         {
             "question": "Cual es tu comida favorita?",
             "type": "multiple-choice",
-            "options": ["Papas Frita", "Pizza", "Hambuerguesa", "Completos", "Ninguna de las anteriores"]
+            "options": ["Papas Fritas", "Pizza", "Hamburguesa", "Completos", "Ninguna de las anteriores"]
         },
         {
             "question": "Cual es tu bebida favorita?",
@@ -12,10 +12,30 @@
             "options": ["Agua", "Jugo de naranja", "Coca-Cola", "Cerveza", "Ninguna de las anteriores"]
         },
         {
-            "question": "Que es lo que mas te gusta de tu comida favorita?",
+            "question": "Cuando fue la ultima vez que fuiste a un restaurante de comida rapida?",
+            "type": "multiple-choice",
+            "options": ["Hoy", "Ayer", "La semana pasada", "El mes pasado", "Hace mas de un mes"]
+        },
+        {
+            "question": "A que restaurante de comida rapida fuiste?",
+            "type": "multiple-choice",
+            "options": ["McDonalds", "BurgerKing", "KFC", "Pedro Juan & Diego", "Ninguna de las anteriores"]
+        },
+        {
+            "question": "En que rango de precios se encontraba la comida que compraste?",
+            "type": "multiple-choice",
+            "options": ["$0 - $4.999", "$5.000 - $9.999", "$10.000 - $14.999", "15.000+"]
+        },
+        {
+            "question": "Describe tu experiencia en el local",
             "type": "text"
+        },
+        {
+            "question": "Recomendarias ir a este lugar?",
+            "type": "multiple-choice",
+            "options": ["Si", "No"]
         }
     ],
     "end-message": "Se han guardado tus respuestas. Muchas gracias por participar :).",
-    "invalid": "Esa no es una respuesta valida. Recuerda responder con alguna de las alternativas (a, b, c, d, e)"
+    "invalid": "Esa no es una respuesta valida. Recuerda responder con alguna de las alternativas (a, b, c, d, e), o un mensaje que represente a la alternativa correcta."
 }
