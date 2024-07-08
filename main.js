@@ -104,7 +104,6 @@ client.on("message", (message) => {
     console.log("Message sent:", response);
   }
   surveyLogic();
-  printAnswersTable(db);
 });
 
 // Start your client

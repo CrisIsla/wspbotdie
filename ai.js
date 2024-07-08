@@ -14,17 +14,18 @@ function createSystemQuery(question_json) {
 }
 
 async function getSelectedChoice(question_json, message) {
+  conversation = [
+    {
+      role: "system",
+      content: createSystemQuery(question_json),
+    },
+    {
+      role: "user",
+      content: message,
+    },
+  ];
   const completion = await openai.chat.completions.create({
-    messages: [
-      {
-        role: "system",
-        content: createSystemQuery(question_json),
-      },
-      {
-        role: "user",
-        content: message,
-      },
-    ],
+    messages: conversation,
     model: "gpt-3.5-turbo",
   });
 
