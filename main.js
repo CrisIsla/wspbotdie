@@ -74,11 +74,7 @@ client.on("message", (message) => {
       )
     ) {
       await client.sendMessage(message.from, "Interpretando respuesta...");
-      selected_choice = await getSelectedChoice(
-        last_question.question,
-        last_question.options,
-        selected_choice
-      );
+      selected_choice = await getSelectedChoice(last_question, selected_choice);
       if (
         !getQuestionChoices(last_question.options).includes(
           selected_choice.toLowerCase()
