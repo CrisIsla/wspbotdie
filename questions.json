@@ -1,41 +1,80 @@
 {
-    "welcome-message": "Hola, soy Cristobal. Bienvenido/a a mi encuesta sobre comida.\nPor favor contesta las preguntas de alternativas enviando una de las siguientes opciones (a, b, c, d, e). En caso de que respondas de otra manera, se interpretará tu respuesta a la alternativa correspondiente.\nEl resto de preguntas se puede responder libremente.\nResponde a este mensaje para comenzar :).",
+    "welcome-message": "Hola, soy Cristobal. Bienvenido/a a mi encuesta.\nPor favor contesta las preguntas de alternativas enviando una de las siguientes opciones (a, b, c, d, e). En caso de que respondas de otra manera, se interpretará tu respuesta a la alternativa correspondiente. Cuando se te pida responder un numero de meses, responde con un numero (ej: 5).\nEl resto de preguntas se puede responder libremente.\nResponde a este mensaje para comenzar :).",
     "questions": [
         {
-            "question": "Cual es tu comida favorita?",
+            "depends": false,
+            "question": "Actualmente, ¿Cuál es su ocupación?",
             "type": "multiple-choice",
-            "options": ["Papas Fritas", "Pizza", "Hamburguesa", "Completos", "Ninguna de las anteriores"]
+            "options": ["Estoy trabajando", "Estoy estudiando un postgrado", "Estoy trabajando y estudiando un postgrado/postítulo a la vez", "Estoy desempleado/a", "Otro"]
         },
         {
-            "question": "Cual es tu bebida favorita?",
-            "type": "multiple-choice",
-            "options": ["Agua", "Jugo de naranja", "Coca-Cola", "Cerveza", "Ninguna de las anteriores"]
-        },
-        {
-            "question": "Cuando fue la ultima vez que fuiste a un restaurante de comida rapida?",
-            "type": "multiple-choice",
-            "options": ["Hoy", "Ayer", "La semana pasada", "El mes pasado", "Hace mas de un mes"]
-        },
-        {
-            "question": "A que restaurante de comida rapida fuiste?",
-            "type": "multiple-choice",
-            "options": ["McDonalds", "BurgerKing", "KFC", "Pedro Juan & Diego", "Ninguna de las anteriores"]
-        },
-        {
-            "question": "En que rango de precios se encontraba la comida que compraste?",
-            "type": "multiple-choice",
-            "options": ["$0 - $4.999", "$5.000 - $9.999", "$10.000 - $14.999", "15.000+"]
-        },
-        {
-            "question": "Describe tu experiencia en el local",
+            "depends": true,
+            "depends_on": 0,
+            "depends_answers": ["e"],
+            "question": "Describa su ocupación actual.",
             "type": "text"
         },
         {
-            "question": "Recomendarias ir a este lugar?",
+            "depends": true,
+            "depends_on": 0,
+            "depends_answers": ["e"],
+            "question": "¿Está actualmente cursando un postgrado (en Chile o en el extranjero)?",
             "type": "multiple-choice",
             "options": ["Si", "No"]
+        },
+        {
+            "depends": true,
+            "depends_on": 2,
+            "depends_answers": ["a"],
+            "question": "¿Cuántos meses transcurrieron entre que se tituló y entro al postgrado?",
+            "type": "text"
+        },
+        {
+            "depends": true,
+            "depends_on": 0,
+            "depends_answers": ["e"],
+            "question": "¿Esta actualmente trabajando?",
+            "type": "multiple-choice",
+            "options": ["Si", "No"]
+        },
+        {
+            "depends": true,
+            "depends_on": 4,
+            "depends_answers": ["a"],
+            "question": "¿Cuantos meses se demoró en conseguir su primer trabajo?",
+            "type": "text"
+        },
+        {
+            "depends": true,
+            "depends_on": 4,
+            "depends_answers": ["a"],
+            "question": "¿Qué tipo de contrato tiene en su trabajo?",
+            "type": "multiple-choice",
+            "options": ["Contrato indefinido o de planta", "Contrato a plazo fijo o a contrata", "Honorarios"]
+        },
+        {
+            "depends": true,
+            "depends_on": 4,
+            "depends_answers": ["a"],
+            "question": "¿De qué tipo es su trabajo?",
+            "type": "multiple-choice",
+            "options": ["Dependiente", "Independiente", "Una combinación de las dos anteriores"]
+        },
+        {
+            "depends": true,
+            "depends_on": 4,
+            "depends_answers": ["a"],
+            "question": "¿Cuál es el nombre de su lugar de trabajo?",
+            "type": "text"
+        },
+        {
+            "depends": true,
+            "depends_on": 4,
+            "depends_answers": ["a"],
+            "question": "¿Cuál es el cargo o función que cumple en ese trabajo?",
+            "type": "text"
         }
     ],
     "end-message": "Se han guardado tus respuestas. Muchas gracias por participar :).",
-    "invalid": "Esa no es una respuesta valida. Recuerda responder con alguna de las alternativas (a, b, c, d, e), o un mensaje que represente a la alternativa correcta."
+    "invalid": "Esa no es una respuesta valida. Recuerda responder con alguna de las alternativas (a, b, c, d, e), o un mensaje que represente a la alternativa que se desea seleccionar."
 }
