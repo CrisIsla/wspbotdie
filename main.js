@@ -33,12 +33,12 @@ client.once("ready", () => {
 
   async function sendInitialMessage() {
     for (let i = 0; i < numbers.length; i++) {
-      client.sendMessage(numbers[i], bot_messages["welcome-message"]);
       answers[numbers[i]] = {
         sent_first_question: false,
         answers: [],
         is_done: false,
       };
+      client.sendMessage(numbers[i], bot_messages["welcome-message"]);
     }
   }
   sendInitialMessage();
@@ -65,10 +65,10 @@ client.on("message", (message) => {
     }
     let total_answers = answers[message.from].answers.length;
     let last_question = bot_messages.questions[total_answers];
-    let selected_choice = message.body;
+    let selected_choice = message.body.toLowerCase();
     let is_answer_valid = true;
     if (
-      last_question.type != "text" &&
+      last_question.type == "multiple-choice" &&
       !getQuestionChoices(last_question.options).includes(
         selected_choice.toLowerCase()
       )
@@ -85,18 +85,39 @@ client.on("message", (message) => {
       } else {
         await client.sendMessage(
           message.from,
-          `Su respuesta se interpreto como la alternativa: ${selected_choice.toUpperCase()}`
+          `Su respuesta se interpreto como la alternativa: ${selected_choice.toLowerCase()}`
         );
       }
     }
     if (is_answer_valid) {
       answers[message.from].answers.push(selected_choice);
       insertAnswer(db, message.from, selected_choice, total_answers);
-      if (last_question === bot_messages.questions[TOTAL_QUESTIONS - 1]) {
-        response = bot_messages["end-message"];
-        answers[message.from].is_done = true;
-      } else {
-        response = formulateQuestion(bot_messages.questions[total_answers + 1]);
+      while (true) {
+        if (last_question === bot_messages.questions[TOTAL_QUESTIONS - 1]) {
+          response = bot_messages["end-message"];
+          answers[message.from].is_done = true;
+          break;
+        } else {
+          let depends = bot_messages.questions[total_answers + 1].depends;
+          if (!depends) {
+            response = formulateQuestion(bot_messages.questions[total_answers + 1]);
+            break;
+          }
+          let depends_on = bot_messages.questions[total_answers + 1].depends_on;
+          let depends_answers = bot_messages.questions[total_answers + 1].depends_answers;
+          if (depends_answers.includes(answers[message.from].answers[depends_on])) {
+            response = formulateQuestion(bot_messages.questions[total_answers + 1]);
+            break;
+          }
+          else {
+            answers[message.from].answers.push(NaN);
+            total_answers += 1;
+            insertAnswer(db, message.from, "No aplica", total_answers);
+            last_question = bot_messages.questions[total_answers];
+            console.log(answers[message.from].answers)
+            console.log(last_question)
+          }
+        }
       }
     }
     client.sendMessage(message.from, response);
