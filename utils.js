@@ -17,7 +17,12 @@ function formulateQuestion(question_json) {
   return question;
 }
 
+async function setTimer(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 module.exports = {
   getQuestionChoices,
   formulateQuestion,
+  setTimer,
 };

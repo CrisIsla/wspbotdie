@@ -8,7 +8,7 @@ const {
   insertAnswer,
   printAnswersTable,
 } = require("./database");
-const { getQuestionChoices, formulateQuestion } = require("./utils");
+const { getQuestionChoices, formulateQuestion, setTimer } = require("./utils");
 const { getSelectedChoice } = require("./ai");
 
 const TOTAL_QUESTIONS = bot_messages.questions.length;
@@ -50,6 +50,7 @@ async function surveyLogic(message) {
     )
   ) {
     await message.react("🤔");
+    await setTimer(1000);
     await client.sendMessage(message.from, "Interpretando respuesta...");
     selected_choice = await getSelectedChoice(last_question, selected_choice);
     if (
@@ -60,6 +61,7 @@ async function surveyLogic(message) {
       is_answer_valid = false;
       response = bot_messages.invalid;
     } else {
+      await setTimer(1500);
       await client.sendMessage(
         message.from,
         `Su respuesta se interpreto como la alternativa: ${selected_choice.toLowerCase()}`
@@ -98,6 +100,8 @@ async function surveyLogic(message) {
       }
     }
   }
+
+  await setTimer(2000);
   client.sendMessage(message.from, response);
   console.log(message.from);
   console.log("Message sent:", response);
@@ -111,8 +115,11 @@ async function sendInitialMessage() {
       is_done: false,
     };
     client.sendMessage(numbers[i], bot_messages["welcome-message"]);
+    client.sendMessage(numbers[i], bot_messages.questions[0]);
+    answers[numbers[i]].sent_first_question = true;
   }
 }
+
 // When the client is ready, run this code (only once)
 client.once("ready", () => {
   console.log("Client is ready!");
