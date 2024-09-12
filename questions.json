@@ -1,80 +1,132 @@
 {
-    "welcome-message": "Hola, soy Cristobal. Bienvenido/a a mi encuesta.\nPor favor contesta las preguntas de alternativas enviando una de las siguientes opciones (a, b, c, d, e). En caso de que respondas de otra manera, se interpretará tu respuesta a la alternativa correspondiente. Cuando se te pida responder un numero de meses, responde con un numero (ej: 5).\nEl resto de preguntas se puede responder libremente.\nResponde a este mensaje para comenzar :).",
+    "welcome-message": "Hola. Esperamos que te encuentres muy bien!\nTe contactamos desde el Departamento de Ingeniería Eléctrica de la FCFM, Universidad de Chile, para hacerte unas breves preguntas sobre tu trayectoria profesional y académica después de egresar del DIE. Tus respuestas son fundamentales para el proceso de acreditación del departamento.\nLa encuesta tomará menos de 2 minutos y es completamente anónima.\nSi tienes alguna duda, puedes contactar a Andrés Caba, Jefe de Estudios del DIE, al siguiente correo: andres.caba@uchile.cln ¡Muchas gracias por tu participación!",
     "questions": [
         {
             "depends": false,
-            "question": "Actualmente, ¿Cuál es su ocupación?",
+            "question": "¿En qué año egresaste del Departamento de Eléctrica de la FCFM?",
             "type": "multiple-choice",
-            "options": ["Estoy trabajando", "Estoy estudiando un postgrado", "Estoy trabajando y estudiando un postgrado/postítulo a la vez", "Estoy desempleado/a", "Otro"]
+            "options": [
+                "2019",
+                "2020",
+                "2021",
+                "2022",
+                "2023"
+            ]
+        },
+        {
+            "depends": false,
+            "question": "¿Has ejercido la profesión de Ingeniero Civil Eléctrico?",
+            "type": "multiple-choice",
+            "options": [
+                "Si",
+                "No"
+            ]
+        },
+        {
+            "depends": false,
+            "question": "Actualmente, ¿Cuál es tu ocupación?",
+            "type": "multiple-choice",
+            "options": [
+                "Estoy trabajando",
+                "Estoy estudiando un postgrado",
+                "Estoy trabajando y estudiando un postgrado/postítulo a la vez",
+                "Estoy desempleado/a",
+                "Otro"
+            ]
         },
         {
             "depends": true,
-            "depends_on": 0,
-            "depends_answers": ["e"],
+            "depends_on": 2,
+            "depends_answers": [
+                "e"
+            ],
             "question": "Describa su ocupación actual.",
             "type": "text"
         },
         {
             "depends": true,
-            "depends_on": 0,
-            "depends_answers": ["e"],
-            "question": "¿Está actualmente cursando un postgrado (en Chile o en el extranjero)?",
+            "depends_on": 2,
+            "depends_answers": [
+                "b",
+                "c"
+            ],
+            "question": "¿Trabajaste antes de ingresar al postgrado/postítulo?",
             "type": "multiple-choice",
-            "options": ["Si", "No"]
+            "options": [
+                "Si",
+                "No"
+            ]
         },
         {
             "depends": true,
             "depends_on": 2,
-            "depends_answers": ["a"],
-            "question": "¿Cuántos meses transcurrieron entre que se tituló y entro al postgrado?",
+            "depends_answers": [
+                "b",
+                "c"
+            ],
+            "question": "¿Cuántos meses transcurrieron entre que te titulaste y entraste al postgrado?",
             "type": "text"
         },
         {
             "depends": true,
-            "depends_on": 0,
-            "depends_answers": ["e"],
-            "question": "¿Esta actualmente trabajando?",
-            "type": "multiple-choice",
-            "options": ["Si", "No"]
-        },
-        {
-            "depends": true,
-            "depends_on": 4,
-            "depends_answers": ["a"],
-            "question": "¿Cuantos meses se demoró en conseguir su primer trabajo?",
+            "depends_on": 2,
+            "depends_answers": [
+                "a",
+                "c"
+            ],
+            "question": "¿Cuantos meses te demoraste en conseguir tu primer trabajo?",
             "type": "text"
         },
         {
             "depends": true,
-            "depends_on": 4,
-            "depends_answers": ["a"],
-            "question": "¿Qué tipo de contrato tiene en su trabajo?",
+            "depends_on": 1,
+            "depends_answers": [
+                "a"
+            ],
+            "question": "¿Qué tipo de contrato tienes en tu trabajo?",
             "type": "multiple-choice",
-            "options": ["Contrato indefinido o de planta", "Contrato a plazo fijo o a contrata", "Honorarios"]
+            "options": [
+                "Contrato indefinido o de planta",
+                "Contrato a plazo fijo o a contrata",
+                "Honorarios"
+            ]
         },
         {
             "depends": true,
-            "depends_on": 4,
-            "depends_answers": ["a"],
-            "question": "¿De qué tipo es su trabajo?",
+            "depends_on": 2,
+            "depends_answers": [
+                "a",
+                "c"
+            ],
+            "question": "¿De qué tipo es tu trabajo?",
             "type": "multiple-choice",
-            "options": ["Dependiente", "Independiente", "Una combinación de las dos anteriores"]
+            "options": [
+                "Dependiente",
+                "Independiente",
+                "Una combinación de las dos anteriores"
+            ]
         },
         {
             "depends": true,
-            "depends_on": 4,
-            "depends_answers": ["a"],
-            "question": "¿Cuál es el nombre de su lugar de trabajo?",
+            "depends_on": 2,
+            "depends_answers": [
+                "a",
+                "c"
+            ],
+            "question": "¿Cuál es el nombre de tu lugar de trabajo?",
             "type": "text"
         },
         {
             "depends": true,
-            "depends_on": 4,
-            "depends_answers": ["a"],
+            "depends_on": 2,
+            "depends_answers": [
+                "a",
+                "c"
+            ],
             "question": "¿Cuál es el cargo o función que cumple en ese trabajo?",
             "type": "text"
         }
     ],
-    "end-message": "Se han guardado tus respuestas. Muchas gracias por participar :).",
+    "end-message": "¡Muchas gracias por participar en la encuesta DIE 2024!",
     "invalid": "Esa no es una respuesta valida. Recuerda responder con alguna de las alternativas (a, b, c, d, e), o un mensaje que represente a la alternativa que se desea seleccionar."
 }
