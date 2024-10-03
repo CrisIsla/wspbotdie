@@ -1,5 +1,5 @@
 {
-    "welcome-message": "Hola. Esperamos que te encuentres muy bien!\nTe contactamos desde el Departamento de Ingeniería Eléctrica de la FCFM, Universidad de Chile, para hacerte unas breves preguntas sobre tu trayectoria profesional y académica después de egresar del DIE. Tus respuestas son fundamentales para el proceso de acreditación del departamento.\nLa encuesta tomará menos de 2 minutos y es completamente anónima.\nSi tienes alguna duda, puedes contactar a Andrés Caba, Jefe de Estudios del DIE, al siguiente correo: andres.caba@uchile.cl ¡Muchas gracias por tu participación!",
+    "welcome-message": "Hola. Esperamos que te encuentres muy bien!\nTe contactamos desde el Departamento de Ingeniería Eléctrica de la FCFM, Universi émica después de egresar del DIE. Tus respuestas son fundamentales para el proceso de acreditación de la carrera.\nLa encuesta tomará menos de 2 minutos y es completamente anónima.\nSi tienes alguna duda, puedes contactar a Andrés Caba, Jefe de Estudios del DIE, al siguiente correo: andres.caba@uchile.cl ¡Muchas gracias por tu participación!",
     "questions": [
         {
             "depends": false,
@@ -15,7 +15,7 @@
         },
         {
             "depends": false,
-            "question": "¿Has ejercido la profesión de Ingeniero Civil Eléctrico?",
+            "question": "¿Has ejercido la profesión de Ingeniero/a Civil Eléctrico?",
             "type": "multiple-choice",
             "options": [
                 "Si",
@@ -30,16 +30,11 @@
                 "Estoy trabajando",
                 "Estoy estudiando un postgrado",
                 "Estoy trabajando y estudiando un postgrado/postítulo a la vez",
-                "Estoy desempleado/a",
-                "Otro"
+                "Estoy desempleado/a"
             ]
         },
         {
-            "depends": true,
-            "depends_on": 2,
-            "depends_answers": [
-                "e"
-            ],
+            "depends": false,
             "question": "Describa su ocupación actual.",
             "type": "text"
         },

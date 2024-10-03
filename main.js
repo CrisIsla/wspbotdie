@@ -111,6 +111,7 @@ async function sendInitialMessage() {
     };
     await client.sendMessage(numbers[i], bot_messages["welcome-message"]);
     response = formulateQuestion(bot_messages.questions[0]);
+    await setTimer(750);
     await client.sendMessage(numbers[i], response);
     answers[numbers[i]].sent_first_question = true;
   }
