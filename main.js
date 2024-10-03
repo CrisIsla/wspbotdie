@@ -28,13 +28,12 @@ const client = new Client({
 });
 
 async function surveyLogic(message) {
-  if (message.body == "" || answers[message.from].is_done) return;
+  if (!numbers.includes(message.from) || message.body == "" || answers[message.from].is_done) return;
   console.log("Message received:", message.body);
   let response;
   if (!answers[message.from].sent_first_question) {
     response = formulateQuestion(bot_messages.questions[0]);
     client.sendMessage(message.from, response);
-    console.log(message.from);
     console.log("Message sent:", response);
     answers[message.from].sent_first_question = true;
     return;
@@ -51,7 +50,7 @@ async function surveyLogic(message) {
   ) {
     await message.react("🤔");
     await setTimer(1000);
-    await client.sendMessage(message.from, "Interpretando respuesta...");
+    let interpretation_message = await client.sendMessage(message.from, "Interpretando respuesta...");
     selected_choice = await getSelectedChoice(last_question, selected_choice);
     if (
       !getQuestionChoices(last_question.options).includes(
@@ -62,8 +61,7 @@ async function surveyLogic(message) {
       response = bot_messages.invalid;
     } else {
       await setTimer(1500);
-      await client.sendMessage(
-        message.from,
+      await interpretation_message.edit(
         `Su respuesta se interpreto como la alternativa: ${selected_choice.toLowerCase()}`
       );
     }
@@ -94,8 +92,6 @@ async function surveyLogic(message) {
           total_answers += 1;
           insertAnswer(db, message.from, "No aplica", total_answers);
           last_question = bot_messages.questions[total_answers];
-          console.log(answers[message.from].answers)
-          console.log(last_question)
         }
       }
     }
@@ -103,7 +99,6 @@ async function surveyLogic(message) {
 
   await setTimer(2000);
   client.sendMessage(message.from, response);
-  console.log(message.from);
   console.log("Message sent:", response);
 }
 
@@ -114,8 +109,9 @@ async function sendInitialMessage() {
       answers: [],
       is_done: false,
     };
-    client.sendMessage(numbers[i], bot_messages["welcome-message"]);
-    client.sendMessage(numbers[i], bot_messages.questions[0]);
+    await client.sendMessage(numbers[i], bot_messages["welcome-message"]);
+    response = formulateQuestion(bot_messages.questions[0]);
+    await client.sendMessage(numbers[i], response);
     answers[numbers[i]].sent_first_question = true;
   }
 }

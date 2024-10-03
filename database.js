@@ -41,7 +41,7 @@ function createAnswersTable(db, total_questions) {
 function insertAnswer(db, number, answer, answer_number) {
   query = `INSERT INTO answers (number, Q${answer_number}) VALUES (?, ?) ON CONFLICT(number) DO UPDATE SET Q${answer_number} = ? WHERE number = ?`;
 
-  db.run(query, [number, answer, answer, number], function (err) {
+  db.run(query, [number, answer, answer, number], function(err) {
     if (err) {
       console.error("Error inserting data:", err.message);
     } else {
