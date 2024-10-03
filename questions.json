@@ -79,9 +79,10 @@
         },
         {
             "depends": true,
-            "depends_on": 1,
+            "depends_on": 2,
             "depends_answers": [
-                "a"
+                "a",
+                "c"
             ],
             "question": "¿Qué tipo de contrato tienes en tu trabajo?",
             "type": "multiple-choice",
