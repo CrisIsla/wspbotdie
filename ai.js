@@ -26,7 +26,7 @@ async function getSelectedChoice(question_json, message) {
   ];
   const completion = await openai.chat.completions.create({
     messages: conversation,
-    model: "gpt-3.5-turbo",
+    model: "gpt-4o-mini",
   });
 
   return completion.choices[0].message.content;

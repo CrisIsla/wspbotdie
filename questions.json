@@ -1,5 +1,5 @@
 {
-    "welcome-message": "Hola. Esperamos que te encuentres muy bien!\nTe contactamos desde el Departamento de Ingeniería Eléctrica de la FCFM, Universi émica después de egresar del DIE. Tus respuestas son fundamentales para el proceso de acreditación de la carrera.\nLa encuesta tomará menos de 2 minutos y es completamente anónima.\nSi tienes alguna duda, puedes contactar a Andrés Caba, Jefe de Estudios del DIE, al siguiente correo: andres.caba@uchile.cl ¡Muchas gracias por tu participación!",
+    "welcome-message": "Hola. Esperamos que te encuentres muy bien!\nTe contactamos desde el Departamento de Ingeniería Eléctrica de la FCFM, Universidad de Chile, para hacerte unas breves preguntas sobre tu trayectoria profesional y académica después de egresar del DIE. Tus respuestas son fundamentales para el proceso de acreditación de la carrera.\nLa encuesta tomará menos de 2 minutos y es completamente anónima.\nSi tienes alguna duda, puedes contactar a Andrés Caba, Jefe de Estudios del DIE, al siguiente correo: andres.caba@uchile.cl ¡Muchas gracias por tu participación!",
     "questions": [
         {
             "depends": false,
@@ -15,7 +15,7 @@
         },
         {
             "depends": false,
-            "question": "¿Has ejercido la profesión de Ingeniero/a Civil Eléctrico?",
+            "question": "¿Has ejercido la profesión de Ingeniero/a Civil Eléctrico/a?",
             "type": "multiple-choice",
             "options": [
                 "Si",
@@ -28,7 +28,7 @@
             "type": "multiple-choice",
             "options": [
                 "Estoy trabajando",
-                "Estoy estudiando un postgrado",
+                "Estoy estudiando un postgrado/postítulo",
                 "Estoy trabajando y estudiando un postgrado/postítulo a la vez",
                 "Estoy desempleado/a"
             ]
@@ -69,7 +69,7 @@
                 "a",
                 "c"
             ],
-            "question": "¿Cuantos meses te demoraste en conseguir tu primer trabajo?",
+            "question": "¿Cuántos meses te demoraste en conseguir tu primer trabajo?",
             "type": "text"
         },
         {
@@ -124,5 +124,5 @@
         }
     ],
     "end-message": "¡Muchas gracias por participar en la encuesta DIE 2024!",
-    "invalid": "Esa no es una respuesta valida. Recuerda responder con alguna de las alternativas (a, b, c, d, e), o un mensaje que represente a la alternativa que se desea seleccionar."
+    "invalid": "Esa no es una respuesta valida. Recuerda responder con alguna de las alternativas (a, b, c, d, e), o un mensaje que represente la alternativa que deseas seleccionar."
 }
