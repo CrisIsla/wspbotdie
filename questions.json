@@ -1,5 +1,5 @@
 {
-    "welcome-message": "Hola. Esperamos que te encuentres muy bien!\nTe contactamos desde el Departamento de Ingeniería Eléctrica de la FCFM, Universidad de Chile, para hacerte unas breves preguntas sobre tu trayectoria profesional y académica después de egresar del DIE. Tus respuestas son fundamentales para el proceso de acreditación de la carrera.\nLa encuesta tomará menos de 2 minutos y es completamente anónima.\nSi tienes alguna duda, puedes contactar a Andrés Caba, Jefe de Estudios del DIE, al siguiente correo: andres.caba@uchile.cl ¡Muchas gracias por tu participación!",
+    "welcome-message": "Hola. Esperamos que te encuentres muy bien!\nTe contactamos desde el Departamento de Ingeniería Eléctrica de la FCFM, Universidad de Chile, para hacerte unas breves preguntas sobre tu trayectoria profesional y académica después de egresar del DIE. Tus respuestas son fundamentales para el proceso de acreditación de la carrera.\nLa encuesta tomará menos de *2 minutos* y es completamente anónima.\nSi tienes alguna duda, puedes contactar a Andrés Caba, Jefe de Estudios del DIE, al siguiente correo: andres.caba@uchile.cl ¡Muchas gracias por tu participación!",
     "questions": [
         {
             "depends": false,
